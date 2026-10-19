@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { GraduationCap, Briefcase, BarChart3, Users, ArrowRight } from "lucide-react";
+import { GraduationCap, Briefcase, BarChart3, Users, ArrowRight, Flame, CalendarClock } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import companies from "@/assets/companies.jpg";
 import { Btn, Section, seo } from "@/components/site";
@@ -19,6 +19,17 @@ const pillars = [
 function Index() {
   return (
     <>
+      {/* Limited-time offer banner for today's GHL workshop */}
+      <div className="bg-gold text-gold-foreground">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-2 px-6 py-2.5 text-center text-sm font-semibold">
+          <Flame className="h-4 w-4" />
+          <span>Today only: Free GHL IT Sales Workshop — Limited offer period, closes tonight!</span>
+          <Link to="/revenue-lab" className="inline-flex items-center gap-1 rounded-md bg-navy px-3 py-1 text-xs font-bold text-navy-foreground hover:brightness-110">
+            Reserve your seat <ArrowRight className="h-3 w-3" />
+          </Link>
+        </div>
+      </div>
+
       <section className="relative overflow-hidden bg-navy text-navy-foreground">
         <img src={hero} alt="Professional overlooking a city skyline at sunset" width={1600} height={912} className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-hero-overlay" />
@@ -31,6 +42,16 @@ function Index() {
           <div className="mt-10 flex flex-wrap gap-4">
             <Btn to="/programs">Explore Programs</Btn>
             <Btn to="/companies" variant="outline">For Companies</Btn>
+          </div>
+
+          {/* Workshop CTAs */}
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Link to="/revenue-lab" className="inline-flex items-center gap-2 rounded-md border border-gold/60 bg-gold/10 px-4 py-2.5 text-sm font-bold text-gold backdrop-blur hover:bg-gold/20">
+              <CalendarClock className="h-4 w-4" /> Join Today's GHL Workshop
+            </Link>
+            <Link to="/placement" className="inline-flex items-center gap-2 rounded-md border border-navy-foreground/40 px-4 py-2.5 text-sm font-bold text-navy-foreground/90 hover:bg-navy-foreground/10">
+              IT Sales Placement Workshop <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </section>
