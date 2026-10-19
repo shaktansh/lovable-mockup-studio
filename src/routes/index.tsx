@@ -1,5 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { GraduationCap, Briefcase, BarChart3, Users, ArrowRight, Flame, CalendarClock } from "lucide-react";
+import {
+  GraduationCap,
+  Briefcase,
+  BarChart3,
+  Users,
+  ArrowRight,
+  Flame,
+  Sparkles,
+  CalendarClock,
+  Rocket,
+} from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import companies from "@/assets/companies.jpg";
 import { Btn, Section, seo } from "@/components/site";
@@ -16,42 +26,89 @@ const pillars = [
   { icon: Users, title: "Revenue Lab", text: "Free workshops and practical sales insights.", cta: "Join a Workshop", to: "/revenue-lab" },
 ] as const;
 
+const workshops = [
+  { tag: "TODAY", time: "5:00 PM IST", title: "GHL IT Sales Workshop", to: "/revenue-lab" },
+  { tag: "THIS WEEK", time: "Thu 7:00 PM IST", title: "IT Sales Placement Bootcamp", to: "/placement" },
+  { tag: "THIS WEEK", time: "Sat 11:00 AM IST", title: "Enterprise Discovery Masterclass", to: "/revenue-lab" },
+  { tag: "LIVE NOW", time: "Replay until 11 PM", title: "Pipeline Generation Sprint", to: "/revenue-lab" },
+] as const;
+
+function WorkshopMarquee() {
+  const items = [...workshops, ...workshops];
+  return (
+    <div className="marquee-pause relative w-full overflow-hidden">
+      <div className="marquee-track marquee flex w-max gap-3">
+        {items.map((w, i) => (
+          <Link
+            key={`${w.title}-${i}`}
+            to={w.to}
+            className="group flex shrink-0 items-center gap-3 rounded-xl border border-gold/40 bg-navy-foreground/5 px-4 py-3 backdrop-blur transition-colors hover:border-gold hover:bg-navy-foreground/10"
+          >
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gold text-gold-foreground">
+              <CalendarClock className="h-4 w-4" />
+            </span>
+            <span className="flex flex-col">
+              <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gold">
+                <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-gold" />
+                {w.tag} · {w.time}
+              </span>
+              <span className="text-sm font-bold text-navy-foreground">{w.title}</span>
+            </span>
+            <ArrowRight className="h-4 w-4 text-gold transition-transform group-hover:translate-x-1" />
+          </Link>
+        ))}
+      </div>
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-navy to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-navy to-transparent" />
+    </div>
+  );
+}
+
 function Index() {
   return (
     <>
-      {/* Limited-time offer banner for today's GHL workshop */}
-      <div className="bg-gold text-gold-foreground">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-2 px-6 py-2.5 text-center text-sm font-semibold">
-          <Flame className="h-4 w-4" />
-          <span>Today only: Free GHL IT Sales Workshop — Limited offer period, closes tonight!</span>
-          <Link to="/revenue-lab" className="inline-flex items-center gap-1 rounded-md bg-navy px-3 py-1 text-xs font-bold text-navy-foreground hover:brightness-110">
-            Reserve your seat <ArrowRight className="h-3 w-3" />
-          </Link>
-        </div>
-      </div>
-
       <section className="relative overflow-hidden bg-navy text-navy-foreground">
         <img src={hero} alt="Professional overlooking a city skyline at sunset" width={1600} height={912} className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-hero-overlay" />
-        <div className="relative mx-auto max-w-7xl px-6 py-28 md:py-36">
+        <div className="relative mx-auto max-w-7xl px-6 py-24 md:py-36">
           <p className="eyebrow mb-5">Building People. Revenue. Opportunities.</p>
           <h1 className="max-w-3xl text-5xl font-extrabold leading-[1.05] md:text-7xl">
             Tech Sales Skills <span className="text-gold">for Real-World Growth</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg text-navy-foreground/85">Training. Career Support. Consulting. AI for Revenue.</p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Btn to="/programs">Explore Programs</Btn>
-            <Btn to="/companies" variant="outline">For Companies</Btn>
+
+          {/* Prominent glowing primary CTA + secondary */}
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:flex-wrap">
+            <Link
+              to="/revenue-lab"
+              className="glow-gold inline-flex items-center justify-center gap-2 rounded-xl bg-gold px-7 py-4 text-base font-extrabold text-gold-foreground transition-transform hover:scale-[1.03]"
+            >
+              <Rocket className="h-5 w-5" />
+              Join Today's Free GHL Workshop
+              <ArrowRight className="h-5 w-5" />
+            </Link>
+            <Link
+              to="/placement"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-navy-foreground/30 px-7 py-4 text-base font-bold text-navy-foreground transition-colors hover:border-gold hover:text-gold"
+            >
+              IT Sales Placement Workshop
+              <ArrowRight className="h-5 w-5" />
+            </Link>
           </div>
 
-          {/* Workshop CTAs */}
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Link to="/revenue-lab" className="inline-flex items-center gap-2 rounded-md border border-gold/60 bg-gold/10 px-4 py-2.5 text-sm font-bold text-gold backdrop-blur hover:bg-gold/20">
-              <CalendarClock className="h-4 w-4" /> Join Today's GHL Workshop
-            </Link>
-            <Link to="/placement" className="inline-flex items-center gap-2 rounded-md border border-navy-foreground/40 px-4 py-2.5 text-sm font-bold text-navy-foreground/90 hover:bg-navy-foreground/10">
-              IT Sales Placement Workshop <ArrowRight className="h-4 w-4" />
-            </Link>
+          {/* Urgency strip */}
+          <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-gold">
+            <Flame className="h-3.5 w-3.5" />
+            Limited offer period — seats close tonight
+          </div>
+
+          {/* Moving workshop slideshow */}
+          <div className="mt-12">
+            <div className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-navy-foreground/70">
+              <Sparkles className="h-4 w-4 text-gold" />
+              Live &amp; upcoming workshops
+            </div>
+            <WorkshopMarquee />
           </div>
         </div>
       </section>
